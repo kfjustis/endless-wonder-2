@@ -1,0 +1,29 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+resource/name = "intro"
+length = 22.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("text:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 1.1, 1.2, 1.3, 1.4, 1.5, 2.5, 3.5, 4.8, 5.8, 6, 6.5, 7.5, 8.5, 9, 9.5, 10.5, 11.5, 12, 12.5, 13.5, 14.5, 15, 15.5, 16.5, 17.5, 18, 19.5, 21, 22 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 ), "update":0, "values":[ 0.0, 0.2, 0.6, 0.8, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("text:rect/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 1.1, 1.2, 1.3, 1.4, 1.5 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( -7, 5 ), Vector2( -10, -4 ), Vector2( 22, 14 ), Vector2( -11, 12 ), Vector2( 0, 0 ) ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 1.1, 4.8, 18.5, 22 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ { "args":[  ], "method":"play_hard_open" }, { "args":[  ], "method":"play_bg_music" }, { "args":[  ], "method":"stop_bg_music" }, { "args":[  ], "method":"load_menu" } ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("text:text")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 1.1, 6, 6.5, 9, 11.5, 14.5, 17.5 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ "October 26, 1995", "The day the world changed...", "The day the world changed...", "A child was born...", "Endless Wonder 2", "The Prequel", "Birth of Siebel" ] }
+
