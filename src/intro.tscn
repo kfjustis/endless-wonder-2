@@ -43,7 +43,6 @@ stretch_mode = 0
 
 [node name="text" type="Label" parent="."]
 
-visibility/opacity = 0.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -51,7 +50,7 @@ size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 800.0
-margin/bottom = 605.0
+margin/bottom = 607.0
 text = "Birth of Siebel"
 align = 1
 valign = 1
