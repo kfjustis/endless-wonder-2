@@ -9,9 +9,24 @@
 
 [sub_resource type="SampleLibrary" id=1]
 
-samples/hard_open = { "db":-5.0, "pitch":1.0, "sample":ExtResource( 4 ) }
-samples/opening_bgm_loop = { "db":-10.0, "pitch":1.0, "sample":ExtResource( 5 ) }
-samples/opening_bgm_perf = { "db":-10.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/hard_open = {
+"db": -5.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/opening_bgm_loop = {
+"db": -10.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/opening_bgm_perf = {
+"db": -10.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
 
 [node name="intro" type="Control"]
 
