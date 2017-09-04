@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://menu.gd" type="Script" id=1]
 [ext_resource path="res://textures/menu_bg.png" type="Texture" id=2]
 [ext_resource path="res://sounds/main_menu_bgm.ogg" type="AudioStream" id=3]
 [ext_resource path="res://textures/menu_box_1.png" type="Texture" id=4]
+[ext_resource path="res://textures/menu_highlight.png" type="Texture" id=5]
 
 [node name="root" type="Node2D"]
 
@@ -44,7 +45,7 @@ margin/left = 750.0
 margin/top = 580.0
 margin/right = 790.0
 margin/bottom = 594.0
-text = "v0.2.0"
+text = "v0.2.1"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -118,6 +119,28 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="b_new_game" type="TextureButton" parent="options_bg/options_container/l_new_game"]
+
+visibility/behind_parent = true
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 138.5
+margin/top = 157.0
+margin/right = 98.5
+margin/bottom = 117.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/hover = ExtResource( 5 )
+params/resize_mode = 1
+params/stretch_mode = 0
+
 [node name="l_load_game" type="Label" parent="options_bg/options_container"]
 
 focus/ignore_mouse = true
@@ -132,6 +155,28 @@ text = "Load Game"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="b_load_game" type="TextureButton" parent="options_bg/options_container/l_load_game"]
+
+visibility/behind_parent = true
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 139.0
+margin/top = 157.0
+margin/right = 99.0
+margin/bottom = 117.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/hover = ExtResource( 5 )
+params/resize_mode = 1
+params/stretch_mode = 0
 
 [node name="l_options" type="Label" parent="options_bg/options_container"]
 
@@ -148,6 +193,28 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="b_options" type="TextureButton" parent="options_bg/options_container/l_options"]
+
+visibility/behind_parent = true
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 139.0
+margin/top = 157.0
+margin/right = 99.0
+margin/bottom = 117.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/hover = ExtResource( 5 )
+params/resize_mode = 1
+params/stretch_mode = 0
+
 [node name="l_credits" type="Label" parent="options_bg/options_container"]
 
 focus/ignore_mouse = true
@@ -162,5 +229,27 @@ text = "Credits"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="b_credits" type="TextureButton" parent="options_bg/options_container/l_credits"]
+
+visibility/behind_parent = true
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 139.0
+margin/top = 157.0
+margin/right = 99.0
+margin/bottom = 117.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/hover = ExtResource( 5 )
+params/resize_mode = 1
+params/stretch_mode = 0
 
 
