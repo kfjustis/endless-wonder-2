@@ -6,23 +6,25 @@ extends Control
 
 onready var screen_res = Vector2(Globals.get("display/width"), Globals.get("display/height"))
 
+# scene objects
 onready var bg = get_node("bg")
 onready var slide_left = get_node("dark_left")
 onready var slide_right = get_node("dark_right")
+onready var timer = get_node("hand_timer")
 
 # setup hand
 onready var hand = get_node("hand")
-# tested for this value
-#onready var hand_end_pos = Vector2(screen_res.x/2-hand.get_pos().x/4.0, screen_res.y-hand.get_pos().y/2 + 62.0)
-var hand_dir = Vector2(0,0)
 var hand_end_pos = Vector2(0,0)
 var hand_up_pos = Vector2(0,0)
 
 # scene controls
 var player_control = false
+var can_timer = false
 
 # constants
-var SLIDE_OFFSET = 10.0
+var SLIDE_OFFSET = 10.0  # this is how much it jumps per punch
+var SLIDE_SHIFT = 20.0   # this one is for going back inwards
+var HAND_DELAY = 0.2
 
 func _ready():
 	# setup background
@@ -36,6 +38,11 @@ func _ready():
 	slide_right.set_size(shade_size)
 	slide_right.set_pos(shade_right_pos)
 	
+	# setup timer
+	timer.set_wait_time(HAND_DELAY)
+	timer.connect("timeout", self, "timeout_callback")
+	can_timer = true
+	
 	set_process(true)
 
 func _process(delta):
@@ -43,16 +50,30 @@ func _process(delta):
 	if (Input.is_action_pressed("close_game")):
 		get_tree().quit()
 	
-	# handle player fist and shades
+	# handle player control and shades debounce
 	if (Input.is_key_pressed(KEY_UP) && player_control):
 		hand.set_pos(hand_up_pos)
-		handle_shades()
+		if (can_timer):
+			can_timer = false
+			timer.start()
 	else:
 		hand.set_pos(hand_end_pos)
+
+	# slowly close shades for effect
+	if (slide_left.get_pos().x < 0):
+		slide_left.set_pos(Vector2(slide_left.get_pos().x + SLIDE_SHIFT * get_process_delta_time(), 0))
+	if (slide_right.get_pos().x > screen_res.x/2):
+		slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
 	
 	# check shades to trigger end scene
 
+func timeout_callback():
+	handle_shades()
+	timer.stop()
+	can_timer = true
+
 func handle_shades():
+	print("called shades")
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)
 	var new_right = Vector2(slide_right.get_pos().x + SLIDE_OFFSET, slide_right.get_pos().y)
 	slide_left.set_pos(new_left)

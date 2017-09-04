@@ -104,4 +104,11 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = "hand_rise"
 
+[node name="hand_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 
