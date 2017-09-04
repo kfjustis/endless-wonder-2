@@ -8,18 +8,18 @@
 [sub_resource type="Animation" id=1]
 
 resource/name = "hand_rise"
-length = 6.0
+length = 4.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("hand:rect/pos")
+tracks/0/path = NodePath("hand:transform/pos")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
 "times": FloatArray( 0, 2, 4 ),
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 319.25, 668 ), Vector2( 319.25, 668 ), Vector2( 319.25, 328 ) ]
+"values": [ Vector2( 396.885, 955.175 ), Vector2( 396.885, 955.175 ), Vector2( 396.885, 595.175 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -88,19 +88,11 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 0
 
-[node name="hand" type="TextureFrame" parent="."]
+[node name="hand" type="Sprite" parent="."]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 319.0
-margin/top = 643.0
-margin/right = 464.0
-margin/bottom = 1185.0
+transform/pos = Vector2( 396.885, 595.175 )
+transform/scale = Vector2( 2.14329, 2.14329 )
 texture = ExtResource( 4 )
-expand = true
-stretch_mode = 0
 
 [node name="hand_tween" type="AnimationPlayer" parent="."]
 
