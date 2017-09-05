@@ -22,7 +22,9 @@ var rand_choice = 0 # points at the random audio piece we want to play for punch
 var current_audio_str = ""
 
 # scene controls
+var movie_playing = true
 var player_control = false
+var can_play_sound = true
 var can_timer = false
 
 # constants
@@ -48,21 +50,16 @@ func _ready():
 	can_timer = true
 	
 	set_process(true)
+	set_process_input(true)
 
 func _process(delta):
 	# handle escape
 	if (Input.is_action_pressed("close_game")):
 		get_tree().quit()
 	
-	# handle player control and shades debounce
-	if (Input.is_key_pressed(KEY_UP) && player_control):
-		hand.set_pos(hand_up_pos)
-		handle_punch_audio()
-		if (can_timer):
-			can_timer = false
-			timer.start()
-	else:
-		hand.set_pos(hand_end_pos)
+	# handle audio reset
+	if (!get_node("hand_fx").is_active()):
+		can_play_sound = true
 
 	# slowly close shades for effect
 	if (slide_left.get_pos().x < 0):
@@ -72,16 +69,36 @@ func _process(delta):
 	
 	# check shades to trigger end scene
 
+func _input(event):
+	# handle player input
+	if (!movie_playing):
+		if (event.type == InputEvent.KEY):
+			# up was pressed
+			if (event.scancode == KEY_UP && event.pressed == true && player_control):
+				hand.set_pos(hand_up_pos)
+				if (!get_node("hand_fx").is_active() && can_play_sound):
+					handle_punch_audio()
+				if (can_timer):
+					can_timer = false
+					timer.start()
+				player_control = false
+			# up was released
+			elif event.scancode == KEY_UP && event.pressed == false:
+				hand.set_pos(hand_end_pos)
+				player_control = true
+
 func timeout_callback():
 	handle_shades()
 	timer.stop()
 	can_timer = true
 
 func handle_punch_audio():
+	# lock sound playing
+	can_play_sound = false
 	# get random number
-	rand_choice = randi() % 5 + 1 # want num from 1-5
-	print(rand_choice)
-	# load into audio obj
+	randomize()
+	rand_choice = randi() % 6 + 1 # want num from 1-6
+	# load choice as current sound to play
 	select_audio(rand_choice)
 	# play sound
 	get_node("hand_fx").play(current_audio_str)
@@ -98,9 +115,11 @@ func select_audio(number):
 		current_audio_str = "hurt4"
 	elif (number == 5):
 		current_audio_str = "hurt5"
+	elif (number == 6):
+		current_audio_str = "hurt6"
 	else:
-		# just set it to a certain one by default (1 for sure lol)
-		current_audio_str = "hurt1"
+		# just set it to a certain one by default (6 for sure lol)
+		current_audio_str = "hurt6"
 
 func handle_shades():
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)
@@ -113,7 +132,9 @@ func end_animation():
 	hand_end_pos = hand.get_pos()
 	# store where the hand will go on key press
 	var new_hand_pos = Vector2(hand.get_pos().x, hand.get_pos().y - 150.0)
-	# set the global var
+	# set the global var for where the "up" hand should be
 	hand_up_pos = (new_hand_pos)
+	# signal movie finished
+	movie_playing = false
 	# give control to player
 	player_control = true
