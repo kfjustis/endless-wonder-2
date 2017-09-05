@@ -17,6 +17,10 @@ onready var hand = get_node("hand")
 var hand_end_pos = Vector2(0,0)
 var hand_up_pos = Vector2(0,0)
 
+# setup audio
+var rand_choice = 0 # points at the random audio piece we want to play for punch fx
+var current_audio_str = ""
+
 # scene controls
 var player_control = false
 var can_timer = false
@@ -53,6 +57,7 @@ func _process(delta):
 	# handle player control and shades debounce
 	if (Input.is_key_pressed(KEY_UP) && player_control):
 		hand.set_pos(hand_up_pos)
+		handle_punch_audio()
 		if (can_timer):
 			can_timer = false
 			timer.start()
@@ -71,6 +76,30 @@ func timeout_callback():
 	handle_shades()
 	timer.stop()
 	can_timer = true
+
+func handle_punch_audio():
+	# get random number
+	rand_choice = randi() % 6 + 1 # want num from 1-5
+	# load into audio obj
+	select_audio(rand_choice)
+	# play sound
+	get_node("hand_fx").play(current_audio_str)
+	
+# converts given integer to a specific audio file to play
+func select_audio(number):
+	if (number == 1):
+		current_audio_str = "hurt1"
+	elif (number == 2):
+		current_audio_str = "hurt2"
+	elif (number == 3):
+		current_audio_str = "hurt3"
+	elif (number == 4):
+		current_audio_str = "hurt4"
+	elif (number == 5):
+		current_audio_str = "hurt5"
+	else:
+		# just set it to a certain one by default (1 for sure lol)
+		current_audio_str = "hurt1"
 
 func handle_shades():
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)

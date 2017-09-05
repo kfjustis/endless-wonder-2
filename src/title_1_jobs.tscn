@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://title_1_jobs.gd" type="Script" id=1]
 [ext_resource path="res://textures/white.png" type="Texture" id=2]
 [ext_resource path="res://textures/black.png" type="Texture" id=3]
 [ext_resource path="res://textures/ryon_fist_child.png" type="Texture" id=4]
+[ext_resource path="res://sounds/hurt1.wav" type="Sample" id=5]
+[ext_resource path="res://sounds/hurt2.wav" type="Sample" id=6]
+[ext_resource path="res://sounds/hurt3.wav" type="Sample" id=7]
+[ext_resource path="res://sounds/hurt4.wav" type="Sample" id=8]
+[ext_resource path="res://sounds/hurt5.wav" type="Sample" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -32,6 +37,39 @@ tracks/1/keys = {
 "args": [  ],
 "method": "end_animation"
 } ]
+}
+
+[sub_resource type="SampleLibrary" id=2]
+
+samples/hurt1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/hurt2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
+samples/hurt3 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 7 )
+}
+samples/hurt4 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
+samples/hurt5 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
 }
 
 [node name="title_1_jobs" type="Control"]
@@ -111,5 +149,16 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
+
+[node name="hand_fx" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 2 )
+config/pitch_random = 0.0
 
 
