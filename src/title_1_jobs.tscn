@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://title_1_jobs.gd" type="Script" id=1]
-[ext_resource path="res://textures/menu_highlight.png" type="Texture" id=2]
+[ext_resource path="res://textures/white.png" type="Texture" id=2]
 [ext_resource path="res://textures/black.png" type="Texture" id=3]
 [ext_resource path="res://textures/ryon_fist_child.png" type="Texture" id=4]
 

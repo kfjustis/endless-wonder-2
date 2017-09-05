@@ -73,7 +73,6 @@ func timeout_callback():
 	can_timer = true
 
 func handle_shades():
-	print("called shades")
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)
 	var new_right = Vector2(slide_right.get_pos().x + SLIDE_OFFSET, slide_right.get_pos().y)
 	slide_left.set_pos(new_left)
@@ -87,5 +86,4 @@ func end_animation():
 	# set the global var
 	hand_up_pos = (new_hand_pos)
 	# give control to player
-	#print("Giving player control...")
 	player_control = true
