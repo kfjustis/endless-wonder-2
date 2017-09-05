@@ -68,6 +68,9 @@ func _process(delta):
 		slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
 	
 	# check shades to trigger end scene
+	if (slide_left.get_pos().x + slide_left.get_size().x < screen_res.x/5):
+		# play the jobs animation :)
+		pass
 
 func _input(event):
 	# handle player input
