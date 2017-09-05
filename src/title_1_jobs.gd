@@ -79,7 +79,8 @@ func timeout_callback():
 
 func handle_punch_audio():
 	# get random number
-	rand_choice = randi() % 6 + 1 # want num from 1-5
+	rand_choice = randi() % 5 + 1 # want num from 1-5
+	print(rand_choice)
 	# load into audio obj
 	select_audio(rand_choice)
 	# play sound
