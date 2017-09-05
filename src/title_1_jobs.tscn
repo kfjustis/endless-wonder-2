@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://title_1_jobs.gd" type="Script" id=1]
 [ext_resource path="res://textures/white.png" type="Texture" id=2]
@@ -78,6 +78,13 @@ samples/hurt6 = {
 "priority": 0,
 "sample": ExtResource( 10 )
 }
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "jobs"
+length = 1.0
+loop = false
+step = 0.1
 
 [node name="title_1_jobs" type="Control"]
 
@@ -179,6 +186,7 @@ default/chorus_send = 0.0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/jobs = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

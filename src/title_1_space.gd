@@ -11,7 +11,7 @@ func _ready():
 func _process(delta):
 	# change this to handle pause and menu blah
 	if (Input.is_action_pressed("close_game")):
-		get_tree().quit()
+		load_next_scene()
 
 func load_next_scene():
 	get_tree().change_scene("title_1_jobs.tscn")
