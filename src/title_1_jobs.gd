@@ -23,13 +23,16 @@ var current_audio_str = ""
 
 # scene controls
 var movie_playing = true
+var final_movie_playing = false
 var player_control = false
 var can_play_sound = false
 var can_timer = false
 
 # constants
-var SLIDE_OFFSET = 10.0  # this is how much it jumps per punch
-var SLIDE_SHIFT = 20.0   # this one is for going back inwards
+var SLIDE_OFFSET = 10.0    # this is how much it jumps per punch # 10 is final, 30 is debug
+var SLIDE_SHIFT = 20.0     # this one is for going back inwards
+var SLIDE_SHIFT_END = 30.0 # for end cutscene
+var HAND_SHIFT_END = 100.0
 var HAND_DELAY = 0.2
 
 func _ready():
@@ -62,15 +65,23 @@ func _process(delta):
 		can_play_sound = true
 
 	# slowly close shades for effect
-	if (slide_left.get_pos().x < 0):
-		slide_left.set_pos(Vector2(slide_left.get_pos().x + SLIDE_SHIFT * get_process_delta_time(), 0))
-	if (slide_right.get_pos().x > screen_res.x/2):
-		slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
+	if (!movie_playing):
+		if (slide_left.get_pos().x < 0):
+			slide_left.set_pos(Vector2(slide_left.get_pos().x + SLIDE_SHIFT * get_process_delta_time(), 0))
+		if (slide_right.get_pos().x > screen_res.x/2):
+			slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
 	
 	# check shades to trigger end scene
 	if (slide_left.get_pos().x + slide_left.get_size().x < screen_res.x/5):
 		# play the jobs animation :)
-		pass
+		final_movie_playing = true
+		movie_playing = true
+		player_control = false
+		if (slide_left.get_pos().x + slide_left.get_size().x > 0):
+			slide_left.set_pos(Vector2(slide_left.get_pos().x - SLIDE_SHIFT_END * get_process_delta_time(), 0))
+			slide_right.set_pos(Vector2(slide_right.get_pos().x + SLIDE_SHIFT_END * get_process_delta_time(), 0))
+		if (hand.get_pos().y < screen_res.y + screen_res.y * 0.75):
+			hand.set_pos(Vector2(hand.get_pos().x, hand.get_pos().y + HAND_SHIFT_END * get_process_delta_time()))
 
 func _input(event):
 	# handle player input
