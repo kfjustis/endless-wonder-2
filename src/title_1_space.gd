@@ -14,6 +14,6 @@ func _process(delta):
 		load_next_scene()
 
 func load_next_scene():
-	get_tree().change_scene("title_1_jobs.tscn")
+	get_tree().change_scene("scene_1_hand_fist.tscn")
 
 

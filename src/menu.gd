@@ -78,4 +78,4 @@ func setup_options():
 	b_creds.set_size(l_creds.get_size())
 
 func load_new_game():
-	get_tree().change_scene("title_1_space.tscn")
+	get_tree().change_scene("scene_1_space.tscn")
