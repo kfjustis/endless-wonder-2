@@ -135,7 +135,7 @@ stretch_mode = 0
 
 [node name="hand" type="Sprite" parent="."]
 
-transform/pos = Vector2( 396.885, 595.175 )
+transform/pos = Vector2( 396.885, 1035.18 )
 transform/scale = Vector2( 2.14329, 2.14329 )
 texture = ExtResource( 4 )
 

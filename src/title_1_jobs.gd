@@ -24,7 +24,7 @@ var current_audio_str = ""
 # scene controls
 var movie_playing = true
 var player_control = false
-var can_play_sound = true
+var can_play_sound = false
 var can_timer = false
 
 # constants
@@ -76,17 +76,21 @@ func _input(event):
 	# handle player input
 	if (!movie_playing):
 		if (event.type == InputEvent.KEY):
-			# up was pressed
+			# up was pressed and player has control
 			if (event.scancode == KEY_UP && event.pressed == true && player_control):
+				# move the hand
 				hand.set_pos(hand_up_pos)
+				# play sound effect with de-bounce
 				if (!get_node("hand_fx").is_active() && can_play_sound):
 					handle_punch_audio()
+				# makes it so shades don't advance when key held down (I think)
 				if (can_timer):
 					can_timer = false
 					timer.start()
 				player_control = false
 			# up was released
 			elif event.scancode == KEY_UP && event.pressed == false:
+				# return hand to starting pos
 				hand.set_pos(hand_end_pos)
 				player_control = true
 
@@ -125,6 +129,7 @@ func select_audio(number):
 		current_audio_str = "hurt6"
 
 func handle_shades():
+	# move the shades every time this is called
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)
 	var new_right = Vector2(slide_right.get_pos().x + SLIDE_OFFSET, slide_right.get_pos().y)
 	slide_left.set_pos(new_left)
@@ -139,5 +144,6 @@ func end_animation():
 	hand_up_pos = (new_hand_pos)
 	# signal movie finished
 	movie_playing = false
-	# give control to player
+	# give control to player and allow sounds
 	player_control = true
+	can_play_sound = true
