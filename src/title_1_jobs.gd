@@ -23,13 +23,16 @@ var current_audio_str = ""
 
 # scene controls
 var movie_playing = true
+var final_movie_playing = false
 var player_control = false
-var can_play_sound = true
+var can_play_sound = false
 var can_timer = false
 
 # constants
-var SLIDE_OFFSET = 10.0  # this is how much it jumps per punch
-var SLIDE_SHIFT = 20.0   # this one is for going back inwards
+var SLIDE_OFFSET = 10.0    # this is how much it jumps per punch # 10 is final, 30 is debug
+var SLIDE_SHIFT = 20.0     # this one is for going back inwards
+var SLIDE_SHIFT_END = 30.0 # for end cutscene
+var HAND_SHIFT_END = 100.0
 var HAND_DELAY = 0.2
 
 func _ready():
@@ -62,31 +65,43 @@ func _process(delta):
 		can_play_sound = true
 
 	# slowly close shades for effect
-	if (slide_left.get_pos().x < 0):
-		slide_left.set_pos(Vector2(slide_left.get_pos().x + SLIDE_SHIFT * get_process_delta_time(), 0))
-	if (slide_right.get_pos().x > screen_res.x/2):
-		slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
+	if (!movie_playing):
+		if (slide_left.get_pos().x < 0):
+			slide_left.set_pos(Vector2(slide_left.get_pos().x + SLIDE_SHIFT * get_process_delta_time(), 0))
+		if (slide_right.get_pos().x > screen_res.x/2):
+			slide_right.set_pos(Vector2(slide_right.get_pos().x - SLIDE_SHIFT * get_process_delta_time(), 0))
 	
 	# check shades to trigger end scene
 	if (slide_left.get_pos().x + slide_left.get_size().x < screen_res.x/5):
 		# play the jobs animation :)
-		pass
+		final_movie_playing = true
+		movie_playing = true
+		player_control = false
+		if (slide_left.get_pos().x + slide_left.get_size().x > 0):
+			slide_left.set_pos(Vector2(slide_left.get_pos().x - SLIDE_SHIFT_END * get_process_delta_time(), 0))
+			slide_right.set_pos(Vector2(slide_right.get_pos().x + SLIDE_SHIFT_END * get_process_delta_time(), 0))
+		if (hand.get_pos().y < screen_res.y + screen_res.y * 0.75):
+			hand.set_pos(Vector2(hand.get_pos().x, hand.get_pos().y + HAND_SHIFT_END * get_process_delta_time()))
 
 func _input(event):
 	# handle player input
 	if (!movie_playing):
 		if (event.type == InputEvent.KEY):
-			# up was pressed
+			# up was pressed and player has control
 			if (event.scancode == KEY_UP && event.pressed == true && player_control):
+				# move the hand
 				hand.set_pos(hand_up_pos)
+				# play sound effect with de-bounce
 				if (!get_node("hand_fx").is_active() && can_play_sound):
 					handle_punch_audio()
+				# makes it so shades don't advance when key held down (I think)
 				if (can_timer):
 					can_timer = false
 					timer.start()
 				player_control = false
 			# up was released
 			elif event.scancode == KEY_UP && event.pressed == false:
+				# return hand to starting pos
 				hand.set_pos(hand_end_pos)
 				player_control = true
 
@@ -125,6 +140,7 @@ func select_audio(number):
 		current_audio_str = "hurt6"
 
 func handle_shades():
+	# move the shades every time this is called
 	var new_left = Vector2(slide_left.get_pos().x - SLIDE_OFFSET, slide_left.get_pos().y)
 	var new_right = Vector2(slide_right.get_pos().x + SLIDE_OFFSET, slide_right.get_pos().y)
 	slide_left.set_pos(new_left)
@@ -139,5 +155,6 @@ func end_animation():
 	hand_up_pos = (new_hand_pos)
 	# signal movie finished
 	movie_playing = false
-	# give control to player
+	# give control to player and allow sounds
 	player_control = true
+	can_play_sound = true
